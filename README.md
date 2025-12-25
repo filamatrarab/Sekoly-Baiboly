@@ -1,2 +1,0 @@
-# Sekoly-Baiboly
-Ecole Biblique
