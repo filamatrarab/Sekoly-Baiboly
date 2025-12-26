@@ -1,5 +1,15 @@
 <!DOCTYPE html>
 <html lang="mg">
+<link rel="manifest" href="./manifest.json">
+<meta name="description" content="Fampianarana Baiboly fototra">
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('./pwabuilder-sw.js');
+  });
+}
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
