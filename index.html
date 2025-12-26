@@ -620,4 +620,137 @@
                     <div class="no-results">
                         <div class="no-results-icon">🔍</div>
                         <h3>Tsy nahitana valiny</h3>
-                        <p>Andramo fikarohana haf
+                        <p>Andramo fikarohana hafa</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const html = filteredChapters.map(chapter => {
+                const isFavorite = favorites.includes(chapter.number);
+                return `
+                    <div class="chapter-card">
+                        <div class="chapter-header" onclick="toggleChapter('${chapter.number}')">
+                            <span class="chapter-number">${chapter.number}</span>
+                            <span class="chapter-title">${chapter.title}</span>
+                            <span class="chapter-icon" id="icon-${chapter.number}">▼</span>
+                        </div>
+                        <div class="chapter-content" id="content-${chapter.number}">
+                            ${chapter.sections.map(section => `
+                                <div class="section">
+                                    <div class="section-title">${section.title}</div>
+                                    <div class="text-content">${section.content}</div>
+                                    ${section.verse ? `
+                                        <div class="verse">
+                                            <span class="verse-ref">${section.verse}</span>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            `).join('')}
+                            <div style="margin-top: 20px; text-align: center;">
+                                <button onclick="toggleFavorite('${chapter.number}')" 
+                                        style="background: ${isFavorite ? 'var(--secondary)' : 'var(--primary)'}; 
+                                               color: white; border: none; padding: 10px 20px; 
+                                               border-radius: 20px; cursor: pointer; font-size: 14px;">
+                                    ${isFavorite ? '⭐ Tsy ankafiziko' : '⭐ Haovana ankafiziko'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            container.innerHTML = html;
+        }
+
+        function toggleChapter(chapterId) {
+            const content = document.getElementById(`content-${chapterId}`);
+            const icon = document.getElementById(`icon-${chapterId}`);
+            
+            content.classList.toggle('active');
+            icon.classList.toggle('expanded');
+        }
+
+        function toggleFavorite(chapterId) {
+            const index = favorites.indexOf(chapterId);
+            if (index > -1) {
+                favorites.splice(index, 1);
+            } else {
+                favorites.push(chapterId);
+            }
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            renderContent();
+        }
+
+        // Recherche
+        document.getElementById('searchInput').addEventListener('input', function() {
+            renderContent();
+        });
+
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                currentView = this.dataset.view;
+                
+                if (currentView === 'about') {
+                    showAbout();
+                } else if (currentView === 'notes') {
+                    showNotes();
+                } else {
+                    renderContent();
+                }
+            });
+        });
+
+        function showAbout() {
+            document.getElementById('content').innerHTML = `
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <span class="chapter-title">Mombamomba ny Sekoly Baiboly</span>
+                    </div>
+                    <div class="chapter-content active">
+                        <div class="section">
+                            <div class="section-title">Tanjona</div>
+                            <div class="text-content">
+                                Ny Sekoly Baiboly dia natao hanampiana anao hianatra ny Tenin'Andriamanitra amin'ny fomba mora sy mazava.
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="section-title">Fampiasana</div>
+                            <div class="text-content">
+                                Tsindrio ny lohateny mba hamaky ny lesona tsirairay. Afaka mitady andininy ianao amin'ny alalan'ny fikarohana.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showNotes() {
+            document.getElementById('content').innerHTML = `
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <span class="chapter-title">Fanamarihana</span>
+                    </div>
+                    <div class="chapter-content active">
+                        <div class="section">
+                            <div class="text-content">
+                                Tsy mbola misy fanamarihana. Haingana izao.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Charger le contenu au démarrage
+        setTimeout(() => {
+            renderContent();
+        }, 500);
+    </script>
+</body>
+</html>
