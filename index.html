@@ -1,756 +1,238 @@
-<!DOCTYPE html>
-<html lang="mg">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sekoly Baiboly</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #2C5F7C;
-            --secondary: #E8A55C;
-            --accent: #8B4513;
-            --bg-light: #F5F5F0;
-            --text-dark: #2C3E50;
-            --text-light: #666;
-            --border: #DDD;
-        }
-
-        body.dark-mode {
-            --primary: #4A90C0;
-            --secondary: #F5B350;
-            --accent: #B8773D;
-            --bg-light: #1A1A1A;
-            --text-dark: #E0E0E0;
-            --text-light: #B0B0B0;
-            --border: #333;
-        }
-
-        body.dark-mode .chapter-card {
-            background: #2A2A2A;
-        }
-
-        body.dark-mode .chapter-content {
-            background: #222;
-        }
-
-        body.dark-mode .section {
-            background: #2A2A2A;
-        }
-
-        body.dark-mode .verse {
-            background: #1E3A4D;
-        }
-
-        body.dark-mode .search-box {
-            background: #2A2A2A;
-            color: var(--text-dark);
-        }
-
-        body.dark-mode .search-container,
-        body.dark-mode .bottom-nav {
-            background: #2A2A2A;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-light);
-            color: var(--text-dark);
-            line-height: 1.6;
-            transition: background-color 0.3s, color 0.3s;
-        }
-
-        .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .header h1 {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .theme-toggle {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 50%;
-            transition: all 0.3s;
-        }
-
-        .theme-toggle:hover {
-            background: rgba(255,255,255,0.3);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .search-container {
-            padding: 15px;
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            transition: background-color 0.3s;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid var(--border);
-            border-radius: 25px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-
-        .search-box:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(44, 95, 124, 0.1);
-        }
-
-        .container {
-            padding: 15px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-bottom: 80px;
-        }
-
-        .chapter-card {
-            background: white;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
-        }
-
-        .chapter-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-        }
-
-        .chapter-header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 15px 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .chapter-number {
-            background: rgba(255,255,255,0.2);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .chapter-title {
-            flex: 1;
-            margin: 0 15px;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        .chapter-icon {
-            font-size: 20px;
-            transition: transform 0.3s;
-        }
-
-        .chapter-icon.expanded {
-            transform: rotate(180deg);
-        }
-
-        .chapter-content {
-            padding: 20px;
-            display: none;
-            background: #FAFAFA;
-            transition: background-color 0.3s;
-        }
-
-        .chapter-content.active {
-            display: block;
-            animation: slideDown 0.3s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .section {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            border-left: 4px solid var(--secondary);
-            transition: background-color 0.3s;
-        }
-
-        .section-title {
-            color: var(--primary);
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        .section-title::before {
-            content: "📖";
-            margin-right: 8px;
-        }
-
-        .verse {
-            background: #F0F7FF;
-            padding: 12px;
-            border-radius: 6px;
-            margin: 10px 0;
-            border-left: 3px solid var(--primary);
-            font-style: italic;
-            transition: background-color 0.3s;
-        }
-
-        .verse-ref {
-            color: var(--accent);
-            font-weight: bold;
-            display: block;
-            margin-top: 8px;
-            font-style: normal;
-        }
-
-        .subsection {
-            margin: 15px 0;
-            padding-left: 15px;
-        }
-
-        .subsection-title {
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-
-        .text-content {
-            line-height: 1.8;
-            color: var(--text-light);
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-light);
-        }
-
-        .no-results-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-        }
-
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            transition: background-color 0.3s;
-        }
-
-        .nav-item {
-            flex: 1;
-            text-align: center;
-            padding: 8px;
-            color: var(--text-light);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .nav-item:hover, .nav-item.active {
-            color: var(--primary);
-        }
-
-        .nav-icon {
-            font-size: 24px;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .nav-label {
-            font-size: 12px;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 40px;
-        }
-
-        .spinner {
-            border: 4px solid var(--border);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Styles responsive */
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 20px;
-            }
-            
-            .chapter-title {
-                font-size: 14px;
-            }
-            
-            .section-title {
-                font-size: 16px;
-            }
-
-            .theme-toggle {
-                right: 10px;
-                font-size: 20px;
-                padding: 6px 10px;
-            }
-        }
-
-        /* Style pour impression */
-        @media print {
-            .header, .search-container, .bottom-nav, .theme-toggle {
-                display: none;
-            }
-            
-            .chapter-content {
-                display: block !important;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>📚 Sekoly Baiboly</h1>
-        <p>Fampianarana ny Tenin'Andriamanitra</p>
-        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
-    </div>
-
-    <div class="search-container">
-        <input type="text" class="search-box" id="searchInput" placeholder="🔍 Hitady lesona na andininy...">
-    </div>
-
-    <div class="container" id="content">
-        <div class="loading">
-            <div class="spinner"></div>
-            <p>Manatrika...</p>
-        </div>
-    </div>
-
-    <div class="bottom-nav">
-        <a href="#" class="nav-item active" data-view="all">
-            <span class="nav-icon">📖</span>
-            <span class="nav-label">Rehetra</span>
-        </a>
-        <a href="#" class="nav-item" data-view="favorites">
-            <span class="nav-icon">⭐</span>
-            <span class="nav-label">Ankafiziko</span>
-        </a>
-        <a href="#" class="nav-item" data-view="notes">
-            <span class="nav-icon">📝</span>
-            <span class="nav-label">Fanamarihana</span>
-        </a>
-        <a href="#" class="nav-item" data-view="about">
-            <span class="nav-icon">ℹ️</span>
-            <span class="nav-label">Mombamomba</span>
-        </a>
-    </div>
-
-    <script>
-        const chapters = [
-            {
-                number: "I",
-                title: "JESOSY DIA NANDIDY MBA ATAO MPIANATRA NY OLONA REHETRA",
-                sections: [
-                    {
-                        title: "Ny Fampianarany",
-                        content: "Koa mandehana ianareo, dia ataovy mpianatra ny firenena rehetra, manao batisa azy ho amin'ny anaran'ny Ray sy ny Zanaka ary ny Fanahy Masina",
-                        verse: "Matio 28:19-20"
-                    },
-                    {
-                        title: "Mitondra Hazo Fijaliana",
-                        content: "Raha misy manaraka Ahy ka tsy mankahala ny rainy sy ny reniny, ny vadiny sy ny zanany, ny rahalahiny sy ny anabaviny; eny, ny ainy koa aza, dia tsy azo ekena ho mpianatro izy.",
-                        verse: "Lioka 14:25-27"
-                    }
-                ]
-            },
-            {
-                number: "II",
-                title: "NY AHAFAHANA MANDRAY TSARA NY TENIN'ANDRIAMANITRA",
-                sections: [
-                    {
-                        title: "Fo Tsara",
-                        content: "Fa ireo teny amin'ny tany tsara kosa dia izay mandre ny teny amin'ny fo sady marina no tsara ka mitana izany ary mamoa amin'ny faharetana.",
-                        verse: "Lioka 8:15"
-                    },
-                    {
-                        title: "Tany Amoron-dalana",
-                        content: "Avelany hiditra ao ampony daholo ny zavatra mitranga rehetra indrindra fa ny ratsy, ny lolom-po vokany lasa mafy ny fo."
-                    },
-                    {
-                        title: "Fo Marivo",
-                        content: "Tsy lalim-paka ny finoana satria tsy mety miditra lalina mihitsy amin'ny fanompoana an'Andriamanitra"
-                    }
-                ]
-            },
-            {
-                number: "III",
-                title: "FAMPIANARANA FAMPIORENANA",
-                sections: [
-                    {
-                        title: "Mifohaza Ianao Izay Matory",
-                        content: "Koa izany no ilazany hoe: Mifohaza ianao izay matory, Ary mitsangàna amin'ny maty, Dia hampahazava anao Kristy.",
-                        verse: "Efesiana 5:14"
-                    },
-                    {
-                        title: "Fiovana",
-                        content: "Koa raha misy olona ao amin'i Kristy, dia olom-baovao izy, efa lasa ny zavatra taloha, indreo, efa tonga vaovao ireo",
-                        verse: "2 Korintinina 5:17"
-                    }
-                ]
-            },
-            {
-                number: "IV",
-                title: "NY FINOANA",
-                sections: [
-                    {
-                        title: "Finoana Mahavonjy",
-                        content: "Ny finoana dia avy amin'ny tori-teny, ary ny tori-teny kosa avy amin'ny tenin'i Kristy.",
-                        verse: "Romana 10:17"
-                    },
-                    {
-                        title: "Finoana Arahina Asa",
-                        content: "Fa raha tsy amin'ny finoana dia tsy misy azo atao hahazoana sitraka Aminy",
-                        verse: "Hebreo 11:6"
-                    }
-                ]
-            },
-            {
-                number: "V",
-                title: "VAVAKA",
-                sections: [
-                    {
-                        title: "Firaisana amin'Andriamanitra",
-                        content: "Antsoy Aho, dia hovaliko ianao ka hampisehoako zavatra lehibe sy saro-pantarina izay tsy fantatrao.",
-                        verse: "Jeremia 33:3"
-                    },
-                    {
-                        title: "Ny Ota Misakana ny Valim-bavaka",
-                        content: "Ny helokareo no efitra mampisaraka anareo amin'Andriamanitrareo",
-                        verse: "Isaia 59:1-2"
-                    }
-                ]
-            },
-            {
-                number: "VI",
-                title: "FIVORIAM-BAVAKA",
-                sections: [
-                    {
-                        title: "Fanatrehan'Andriamanitra",
-                        content: "Fa na aiza na aiza no iangonan'ny roa na telo amin'ny anarako, dia ao afovoany Aho.",
-                        verse: "Matio 18:20"
-                    },
-                    {
-                        title: "Tsy Tokony Hafoy",
-                        content: "Aza mahafoy ny fiarahantsika miangona, tahaka ny fanaon'ny sasany",
-                        verse: "Hebreo 10:25"
-                    }
-                ]
-            },
-            {
-                number: "VII",
-                title: "NY FAHARETANA HATRAMIN'NY FARANY",
-                sections: [
-                    {
-                        title: "Maharitra Farany",
-                        content: "Ary ho halan'ny olona rehetra hianareo noho ny anarako; fa izay maharitra hatramin'ny farany no hovonjena.",
-                        verse: "Matio 10:22"
-                    },
-                    {
-                        title: "Maharitra amin'ny Fibebahana",
-                        content: "Raha maharitra amin'ny finoana hianareo ka mafy orina sady tafatoetra",
-                        verse: "Kolosiana 1:23"
-                    }
-                ]
-            },
-            {
-                number: "VIII",
-                title: "NY FANENJEHANA",
-                sections: [
-                    {
-                        title: "Sambatra Izay Enjehina",
-                        content: "Sambatra izay enjehina noho ny fahamarinana; fa azy ny fanjakan'ny lanitra.",
-                        verse: "Matio 5:10-11"
-                    },
-                    {
-                        title: "Rehefa Halan'izao Tontolo Izao",
-                        content: "Raha halan'izao tontolo izao hianareo, dia aoka ho fantatrareo fa Izaho efa halany talohanareo.",
-                        verse: "Jaona 15:18-19"
-                    }
-                ]
-            },
-            {
-                number: "IX",
-                title: "FAHAMARINANA FOTOTRA",
-                sections: [
-                    {
-                        title: "Ny Baiboly",
-                        content: "Izay soratra rehetra nomen'ny tsindrimandrin'Andriamanitra dia mahasoa koa ho fampianarana",
-                        verse: "2Timoty 3:16"
-                    },
-                    {
-                        title: "Testamenta Vaovao sy Taloha",
-                        content: "Ny fanekena vaovao no ahazoana famonjena"
-                    }
-                ]
-            },
-            {
-                number: "X",
-                title: "ANDRIAMANITRA TELO IZAY IRAY",
-                sections: [
-                    {
-                        title: "Trinité",
-                        content: "Koa mandehana hianareo, dia ataovy mpianatra ny firenena rehetra, manao batisa azy ho amin'ny anaran'ny Ray sy ny Zanaka ary ny Fanahy Masina",
-                        verse: "Matio 28:19"
-                    },
-                    {
-                        title: "Jesosy dia Andriamanitra",
-                        content: "Tamin'ny voalohany ny Teny, ary ny Teny tao amin'Andriamanitra, ary ny Teny dia Andriamanitra.",
-                        verse: "Jaona 1:1"
-                    }
-                ]
-            }
-        ];
-
-        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-        let notes = JSON.parse(localStorage.getItem('notes') || '{}');
-        let currentView = 'all';
-
-        // Initialiser le thème
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            if (savedTheme === 'dark') {
-                document.body.classList.add('dark-mode');
-                document.getElementById('themeToggle').textContent = '☀️';
-            }
-        }
-
-        // Basculer le thème
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            const isDark = document.body.classList.contains('dark-mode');
-            document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        }
-
-        // Initialiser au chargement
-        initTheme();
-
-        function renderContent() {
-            const container = document.getElementById('content');
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            
-            let filteredChapters = chapters;
-            
-            if (searchTerm) {
-                filteredChapters = chapters.filter(chapter => {
-                    const titleMatch = chapter.title.toLowerCase().includes(searchTerm);
-                    const sectionMatch = chapter.sections.some(section => 
-                        section.title.toLowerCase().includes(searchTerm) ||
-                        section.content.toLowerCase().includes(searchTerm) ||
-                        (section.verse && section.verse.toLowerCase().includes(searchTerm))
-                    );
-                    return titleMatch || sectionMatch;
-                });
-            }
-
-            if (currentView === 'favorites') {
-                filteredChapters = filteredChapters.filter(chapter => 
-                    favorites.includes(chapter.number)
-                );
-            }
-
-            if (filteredChapters.length === 0) {
-                container.innerHTML = `
-                    <div class="no-results">
-                        <div class="no-results-icon">🔍</div>
-                        <h3>Tsy nahitana valiny</h3>
-                        <p>Andramo fikarohana hafa</p>
-                    </div>
-                `;
-                return;
-            }
-
-            const html = filteredChapters.map(chapter => {
-                const isFavorite = favorites.includes(chapter.number);
-                return `
-                    <div class="chapter-card">
-                        <div class="chapter-header" onclick="toggleChapter('${chapter.number}')">
-                            <span class="chapter-number">${chapter.number}</span>
-                            <span class="chapter-title">${chapter.title}</span>
-                            <span class="chapter-icon" id="icon-${chapter.number}">▼</span>
-                        </div>
-                        <div class="chapter-content" id="content-${chapter.number}">
-                            ${chapter.sections.map(section => `
-                                <div class="section">
-                                    <div class="section-title">${section.title}</div>
-                                    <div class="text-content">${section.content}</div>
-                                    ${section.verse ? `
-                                        <div class="verse">
-                                            <span class="verse-ref">${section.verse}</span>
-                                        </div>
-                                    ` : ''}
-                                </div>
-                            `).join('')}
-                            <div style="margin-top: 20px; text-align: center;">
-                                <button onclick="toggleFavorite('${chapter.number}')" 
-                                        style="background: ${isFavorite ? 'var(--secondary)' : 'var(--primary)'}; 
-                                               color: white; border: none; padding: 10px 20px; 
-                                               border-radius: 20px; cursor: pointer; font-size: 14px;">
-                                    ${isFavorite ? '⭐ Tsy ankafiziko' : '⭐ Haovana ankafiziko'}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            container.innerHTML = html;
-        }
-
-        function toggleChapter(chapterId) {
-            const content = document.getElementById(`content-${chapterId}`);
-            const icon = document.getElementById(`icon-${chapterId}`);
-            
-            content.classList.toggle('active');
-            icon.classList.toggle('expanded');
-        }
-
-        function toggleFavorite(chapterId) {
-            const index = favorites.indexOf(chapterId);
-            if (index > -1) {
-                favorites.splice(index, 1);
-            } else {
-                favorites.push(chapterId);
-            }
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-            renderContent();
-        }
-
-        // Recherche
-        document.getElementById('searchInput').addEventListener('input', function() {
-            renderContent();
-        });
-
-        // Navigation
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
-                this.classList.add('active');
-                
-                currentView = this.dataset.view;
-                
-                if (currentView === 'about') {
-                    showAbout();
-                } else if (currentView === 'notes') {
-                    showNotes();
-                } else {
-                    renderContent();
-                }
-            });
-        });
-
-        function showAbout() {
-            document.getElementById('content').innerHTML = `
-                <div class="chapter-card">
-                    <div class="chapter-header">
-                        <span class="chapter-title">Mombamomba ny Sekoly Baiboly</span>
-                    </div>
-                    <div class="chapter-content active">
-                        <div class="section">
-                            <div class="section-title">Tanjona</div>
-                            <div class="text-content">
-                                Ny Sekoly Baiboly dia natao hanampiana anao hianatra ny Tenin'Andriamanitra amin'ny fomba mora sy mazava.
-                            </div>
-                        </div>
-                        <div class="section">
-                            <div class="section-title">Fampiasana</div>
-                            <div class="text-content">
-                                Tsindrio ny lohateny mba hamaky ny lesona tsirairay. Afaka mitady andininy ianao amin'ny alalan'ny fikarohana.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function showNotes() {
-            document.getElementById('content').innerHTML = `
-                <div class="chapter-card">
-                    <div class="chapter-header">
-                        <span class="chapter-title">Fanamarihana</span>
-                    </div>
-                    <div class="chapter-content active">
-                        <div class="section">
-                            <div class="text-content">
-                                Tsy mbola misy fanamarihana. Haingana izao.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // Charger le contenu au démarrage
-        setTimeout(() => {
-            renderContent();
-        }, 500);
-    </script>
-</body>
-</html>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== MATERIAL YOU 2026 COLORS ===== */
+:root {
+    --primary: #4F46E5;
+    --secondary: #22C55E;
+    --accent: #F59E0B;
+
+    --bg: #F8FAFC;
+    --card: #FFFFFF;
+    --text: #0F172A;
+    --muted: #64748B;
+    --border: #E5E7EB;
+
+    --radius: 18px;
+    --radius-sm: 12px;
+    --shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* ===== DARK MODE ===== */
+body.dark-mode {
+    --bg: #0F172A;
+    --card: #1E293B;
+    --text: #E5E7EB;
+    --muted: #94A3B8;
+    --border: #334155;
+}
+
+/* ===== BASE ===== */
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    transition: all 0.3s ease;
+}
+
+/* ===== APP BAR ===== */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 18px 20px;
+    background: linear-gradient(135deg, var(--primary), #6366F1);
+    color: white;
+    box-shadow: var(--shadow);
+}
+
+.header h1 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.header p {
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.theme-toggle {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.25);
+    border: none;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* ===== SEARCH ===== */
+.search-container {
+    padding: 16px;
+}
+
+.search-box {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 999px;
+    border: none;
+    background: var(--card);
+    color: var(--text);
+    font-size: 15px;
+    box-shadow: var(--shadow);
+}
+
+.search-box:focus {
+    outline: 2px solid var(--primary);
+}
+
+/* ===== CONTENT ===== */
+.container {
+    padding: 16px;
+    padding-bottom: 90px;
+}
+
+/* ===== CHAPTER CARD ===== */
+.chapter-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    margin-bottom: 18px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+.chapter-header {
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.chapter-number {
+    background: var(--primary);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.chapter-title {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.chapter-icon {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.chapter-icon.expanded {
+    transform: rotate(180deg);
+}
+
+/* ===== CHAPTER CONTENT ===== */
+.chapter-content {
+    display: none;
+    padding: 18px;
+    animation: fadeIn 0.3s ease;
+}
+
+.chapter-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== SECTION ===== */
+.section {
+    background: rgba(79,70,229,0.05);
+    border-radius: var(--radius-sm);
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.text-content {
+    font-size: 14px;
+    color: var(--muted);
+}
+
+/* ===== VERSE ===== */
+.verse {
+    margin-top: 10px;
+    padding: 12px;
+    background: rgba(245,158,11,0.12);
+    border-radius: var(--radius-sm);
+}
+
+.verse-ref {
+    font-weight: 600;
+    color: var(--accent);
+}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card);
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    box-shadow: 0 -6px 20px rgba(0,0,0,0.15);
+}
+
+.nav-item {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+}
+
+.nav-item.active {
+    color: var(--primary);
+}
+
+.nav-icon {
+    font-size: 22px;
+}
+
+/* ===== LOADING ===== */
+.spinner {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 4px solid var(--border);
+    border-top-color: var(--primary);
+    animation: spin 1s linear infinite;
+    margin: auto;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+</style>
