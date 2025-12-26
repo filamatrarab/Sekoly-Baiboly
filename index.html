@@ -1,213 +1,116 @@
 <!DOCTYPE html>
-<html lang="mg">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="manifest" href="./manifest.json">
-    <meta name="description" content="Fampianarana Baiboly fototra">
-    <title>Sekoly Baiboly</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sekoly Baiboly - By Josia Y.</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="favicon.ico">
+<link rel="stylesheet" href="static/css/main.css">
 
-    <style>
-        /* Réinitialisation */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+/* =================== */
+/* MODE SOMBRE CSS */
+/* =================== */
+body.dark-mode {
+  background-color: #1f1f1f;
+  color: #dddddd;
+}
 
-        html, body {
-            overflow-x: hidden; /* interdit le scroll horizontal */
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 16px;
-            line-height: 1.6;
-            background: #F5F5F0;
-            color: #2C3E50;
-        }
+header.dark-mode {
+  background-color: #222222 !important;
+}
 
-        /* Variables */
-        :root {
-            --primary: #2C5F7C;
-            --secondary: #E8A55C;
-            --accent: #8B4513;
-            --bg-light: #F5F5F0;
-            --text-dark: #2C3E50;
-            --text-light: #666;
-            --border: #DDD;
-        }
+.card.dark-mode, .button.dark-mode {
+  background-color: #333333;
+  color: #eeeeee;
+  border-color: #555555;
+}
 
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .header h1 { font-size: 24px; margin-bottom: 5px; }
-        .header p { font-size: 14px; opacity: 0.9; }
+a.dark-mode {
+  color: #bb86fc;
+}
 
-        /* Barre de recherche */
-        .search-container {
-            padding: 15px;
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-        .search-box {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid var(--border);
-            border-radius: 25px;
-            font-size: 16px;
-        }
-        .search-box:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(44, 95, 124, 0.1);
-        }
+/* Transition fluide */
+body, header, .card, .button, a {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
 
-        /* Conteneur principal */
-        .container {
-            padding: 15px;
-            max-width: 100%;
-            margin: 0 auto;
-        }
-
-        /* Carte chapitre */
-        .chapter-card {
-            background: white;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            overflow: hidden;
-            width: 100%;
-        }
-        .chapter-header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 15px 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .chapter-number {
-            background: rgba(255,255,255,0.2);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-        }
-        .chapter-title { flex: 1; margin: 0 15px; font-size: 16px; font-weight: 600; }
-        .chapter-icon { font-size: 20px; transition: transform 0.3s; }
-        .chapter-icon.expanded { transform: rotate(180deg); }
-
-        .chapter-content {
-            padding: 20px;
-            display: none;
-            background: #FAFAFA;
-        }
-        .chapter-content.active { display: block; animation: slideDown 0.3s ease-out; }
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Section et texte */
-        .section {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            border-left: 4px solid var(--secondary);
-            width: 100%;
-        }
-        .section-title { color: var(--primary); font-size: 18px; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; }
-        .section-title::before { content: "📖"; margin-right: 8px; }
-        .verse { background: #F0F7FF; padding: 12px; border-radius: 6px; margin: 10px 0; border-left: 3px solid var(--primary); font-style: italic; }
-        .verse-ref { color: var(--accent); font-weight: bold; display: block; margin-top: 8px; font-style: normal; }
-        .text-content { line-height: 1.8; color: var(--text-light); }
-
-        /* Bottom navigation */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-        }
-        .nav-item { flex: 1; text-align: center; padding: 8px; color: var(--text-light); text-decoration: none; }
-        .nav-item:hover, .nav-item.active { color: var(--primary); }
-        .nav-icon { font-size: 24px; display: block; margin-bottom: 4px; }
-        .nav-label { font-size: 12px; }
-
-        /* Loading */
-        .loading { text-align: center; padding: 40px; width: 100%; }
-        .spinner { border: 4px solid var(--border); border-top: 4px solid var(--primary); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .header h1 { font-size: 20px; }
-            .chapter-title { font-size: 14px; }
-            .section-title { font-size: 16px; }
-            body { font-size: 14px; }
-        }
-    </style>
+/* Scrollbar hidden */
+.hidden-scrollbar::-webkit-scrollbar { display: none; }
+.hidden-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
 </head>
 <body>
-    <div class="header">
-        <h1>📚 Sekoly Baiboly</h1>
-        <p>Fampianarana ny Tenin'Andriamanitra</p>
+
+<header class="ant-layout-header fixed top-0 left-0 right-0 mx-auto z-10 h-18 px-4" style="background-color: rgb(31, 31, 31);">
+  <div class="max-w-[920px] mx-auto flex items-center justify-between pt-5 text-yellow-500">
+    <div class="ant-dropdown-trigger text-lg">Fihirana</div>
+    <div class="text-lg flex space-x-2">
+      <!-- Bouton mode sombre -->
+      <button id="toggle-dark-mode" aria-label="Toggle Dark Mode" class="px-2 py-1 rounded">🌙</button>
+    </div>
+  </div>
+</header>
+
+<main class="pt-24 max-w-[920px] mx-auto">
+  <section id="home">
+    <h1 class="text-4xl text-center mb-6">Sekoly Baiboly</h1>
+    <p class="text-center mb-4">Bienvenue dans votre application de lecture biblique.</p>
+
+    <!-- Début des chapitres -->
+    <div class="card p-4 rounded-lg mb-6">
+      <h2 class="text-2xl mb-2">Chapitre 1</h2>
+      <p>Asan’ny Apostoly 1:1-5 ...</p>
+      <p id="verse-1-1">1. Premier verset...</p>
+      <p id="verse-1-2">2. Deuxième verset...</p>
     </div>
 
-    <div class="search-container">
-        <input type="text" class="search-box" id="searchInput" placeholder="🔍 Hitady lesona na andininy...">
+    <div class="card p-4 rounded-lg mb-6">
+      <h2 class="text-2xl mb-2">Chapitre 2</h2>
+      <p>Asan’ny Apostoly 2:1-10 ...</p>
     </div>
 
-    <div class="container" id="content">
-        <div class="loading">
-            <div class="spinner"></div>
-            <p>Manatrika...</p>
-        </div>
+    <div class="card p-4 rounded-lg mb-6">
+      <h2 class="text-2xl mb-2">Chapitre 3</h2>
+      <p>Asan’ny Apostoly 3:1-15 ...</p>
     </div>
+    
+    <!-- Ajoute tous tes chapitres ici, chaque chapitre en <div class="card"> -->
+    
+  </section>
+</main>
 
-    <div class="bottom-nav">
-        <a href="#" class="nav-item active" data-view="all">
-            <span class="nav-icon">📖</span>
-            <span class="nav-label">Rehetra</span>
-        </a>
-        <a href="#" class="nav-item" data-view="favorites">
-            <span class="nav-icon">⭐</span>
-            <span class="nav-label">Ankafiziko</span>
-        </a>
-        <a href="#" class="nav-item" data-view="notes">
-            <span class="nav-icon">📝</span>
-            <span class="nav-label">Fanamarihana</span>
-        </a>
-        <a href="#" class="nav-item" data-view="about">
-            <span class="nav-icon">ℹ️</span>
-            <span class="nav-label">Mombamomba</span>
-        </a>
-    </div>
+<script>
+// ===================
+// MODE SOMBRE JS
+// ===================
+const toggleBtn = document.getElementById('toggle-dark-mode');
+const body = document.body;
+const header = document.querySelector('header');
+const cards = document.querySelectorAll('.card');
 
-    <script>
-        // Ton code JS existant pour chapters, toggleChapter, toggleFavorite, renderContent...
-        // Il n'a pas besoin de modification pour l'affichage mobile correct
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                navigator.serviceWorker.register('./pwabuilder-sw.js');
-            });
-        }
-        // Appel initial du rendu
-        document.addEventListener('DOMContentLoaded', renderContent);
-        document.getElementById('searchInput').addEventListener('input', renderContent);
-    </script>
+// Charger le mode sauvegardé
+if (localStorage.getItem('darkMode') === 'true') {
+  body.classList.add('dark-mode');
+  header.classList.add('dark-mode');
+  cards.forEach(card => card.classList.add('dark-mode'));
+  toggleBtn.textContent = '☀️';
+}
+
+// Bascule au clic
+toggleBtn.addEventListener('click', () => {
+  body.classList.toggle('dark-mode');
+  header.classList.toggle('dark-mode');
+  cards.forEach(card => card.classList.toggle('dark-mode'));
+
+  const isDark = body.classList.contains('dark-mode');
+  toggleBtn.textContent = isDark ? '☀️' : '🌙';
+
+  // Sauvegarde dans le navigateur
+  localStorage.setItem('darkMode', isDark);
+});
+</script>
+
 </body>
 </html>
