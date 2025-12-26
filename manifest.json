@@ -1,23 +1,47 @@
 {
+  "id": "/sekoly-baiboly",
   "name": "Sekoly Baiboly",
-  "short_name": "Baiboly",
-  "description": "Fampianarana Baiboly fototra ho an’ny mpianatra",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
-  "orientation": "portrait",
+  "short_name": "Sekoly Baiboly",
+  "description": "Fampianarana Baiboly fototra sy fampiorenana kristiana",
+  "lang": "mg",
+  "dir": "ltr",
+
+  "start_url": "./",
   "scope": "./",
+
+  "display": "standalone",
+  "orientation": "any",
+
+  "background_color": "#F5F5F0",
+  "theme_color": "#2C5F7C",
+
   "icons": [
     {
       "src": "icon-192.png",
-      "sizes": "192x192",
+      "sizes": "1024x1024",
       "type": "image/png"
     },
     {
       "src": "icon-512.png",
-      "sizes": "512x512",
+      "sizes": "1024x1024",
       "type": "image/png"
+    }
+  ],
+
+  "screenshots": [
+    {
+      "src": "screenshot-mobile.jpg",
+      "sizes": "1080x2400",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Sekoly Baiboly – écran mobile"
+    },
+    {
+      "src": "screenshot-desktop.jpg",
+      "sizes": "1080x2400",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Sekoly Baiboly – version desktop"
     }
   ]
 }
