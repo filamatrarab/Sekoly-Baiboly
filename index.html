@@ -21,11 +21,48 @@
             --border: #DDD;
         }
 
+        body.dark-mode {
+            --primary: #4A90C0;
+            --secondary: #F5B350;
+            --accent: #B8773D;
+            --bg-light: #1A1A1A;
+            --text-dark: #E0E0E0;
+            --text-light: #B0B0B0;
+            --border: #333;
+        }
+
+        body.dark-mode .chapter-card {
+            background: #2A2A2A;
+        }
+
+        body.dark-mode .chapter-content {
+            background: #222;
+        }
+
+        body.dark-mode .section {
+            background: #2A2A2A;
+        }
+
+        body.dark-mode .verse {
+            background: #1E3A4D;
+        }
+
+        body.dark-mode .search-box {
+            background: #2A2A2A;
+            color: var(--text-dark);
+        }
+
+        body.dark-mode .search-container,
+        body.dark-mode .bottom-nav {
+            background: #2A2A2A;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: var(--bg-light);
             color: var(--text-dark);
             line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         .header {
@@ -49,10 +86,31 @@
             opacity: 0.9;
         }
 
+        .theme-toggle {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
         .search-container {
             padding: 15px;
             background: white;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background-color 0.3s;
         }
 
         .search-box {
@@ -74,6 +132,7 @@
             padding: 15px;
             max-width: 1200px;
             margin: 0 auto;
+            padding-bottom: 80px;
         }
 
         .chapter-card {
@@ -82,7 +141,7 @@
             margin-bottom: 15px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             overflow: hidden;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.3s;
         }
 
         .chapter-card:hover {
@@ -128,6 +187,7 @@
             padding: 20px;
             display: none;
             background: #FAFAFA;
+            transition: background-color 0.3s;
         }
 
         .chapter-content.active {
@@ -152,6 +212,7 @@
             background: white;
             border-radius: 8px;
             border-left: 4px solid var(--secondary);
+            transition: background-color 0.3s;
         }
 
         .section-title {
@@ -175,6 +236,7 @@
             margin: 10px 0;
             border-left: 3px solid var(--primary);
             font-style: italic;
+            transition: background-color 0.3s;
         }
 
         .verse-ref {
@@ -223,6 +285,7 @@
             display: flex;
             justify-content: space-around;
             padding: 10px 0;
+            transition: background-color 0.3s;
         }
 
         .nav-item {
@@ -281,11 +344,17 @@
             .section-title {
                 font-size: 16px;
             }
+
+            .theme-toggle {
+                right: 10px;
+                font-size: 20px;
+                padding: 6px 10px;
+            }
         }
 
         /* Style pour impression */
         @media print {
-            .header, .search-container, .bottom-nav {
+            .header, .search-container, .bottom-nav, .theme-toggle {
                 display: none;
             }
             
@@ -299,6 +368,7 @@
     <div class="header">
         <h1>📚 Sekoly Baiboly</h1>
         <p>Fampianarana ny Tenin'Andriamanitra</p>
+        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
     </div>
 
     <div class="search-container">
@@ -501,6 +571,26 @@
         let notes = JSON.parse(localStorage.getItem('notes') || '{}');
         let currentView = 'all';
 
+        // Initialiser le thème
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('themeToggle').textContent = '☀️';
+            }
+        }
+
+        // Basculer le thème
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            document.getElementById('themeToggle').textContent = isDark ? '☀️' : '🌙';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Initialiser au chargement
+        initTheme();
+
         function renderContent() {
             const container = document.getElementById('content');
             const searchTerm = document.getElementById('searchInput').value.toLowerCase();
@@ -592,72 +682,72 @@
             renderContent();
         }
 
-        function switchView(view) {
-            currentView = view;
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            event.target.closest('.nav-item').classList.add('active');
-            
-            if (view === 'about') {
-                document.getElementById('content').innerHTML = `
-                    <div class="chapter-card">
-                        <div class="chapter-header">
-                            <span class="chapter-title">Mombamomba ny Fampianarana</span>
-                        </div>
-                        <div class="chapter-content active">
-                            <div class="section">
-                                <div class="section-title">Tanjona</div>
-                                <div class="text-content">
-                                    Ity fampianarana ity dia natao hampianatra ny mpino momba ny fototra fototra 
-                                    amin'ny finoana kristianina araka ny Baiboly Masina.
-                                </div>
-                            </div>
-                            <div class="section">
-                                <div class="section-title">Fampiasana</div>
-                                <div class="text-content">
-                                    Afaka mamaky, mitady, ary mitahiry ny lesona ankafizinao ianao. 
-                                    Mampiasà ny bokotra fikarohana eo ambony mba hahitana lesona manokana.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            } else if (view === 'notes') {
-                document.getElementById('content').innerHTML = `
-                    <div class="chapter-card">
-                        <div class="chapter-header">
-                            <span class="chapter-title">Fanamarihana</span>
-                        </div>
-                        <div class="chapter-content active">
-                            <div class="section">
-                                <div class="text-content" style="text-align: center; padding: 40px;">
-                                    <div style="font-size: 48px; margin-bottom: 15px;">📝</div>
-                                    <p>Tsy misy fanamarihana</p>
-                                    <p style="font-size: 14px; color: var(--text-light);">
-                                        Haingana dia ho avy ity singa ity
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            } else {
-                renderContent();
-            }
-        }
+        // Recherche
+        document.getElementById('searchInput').addEventListener('input', function() {
+            renderContent();
+        });
 
-        // Event Listeners
-        document.getElementById('searchInput').addEventListener('input', renderContent);
-
+        // Navigation
         document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', (e) => {
+            item.addEventListener('click', function(e) {
                 e.preventDefault();
-                switchView(item.dataset.view);
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                this.classList.add('active');
+                
+                currentView = this.dataset.view;
+                
+                if (currentView === 'about') {
+                    showAbout();
+                } else if (currentView === 'notes') {
+                    showNotes();
+                } else {
+                    renderContent();
+                }
             });
         });
 
-        // Initial render
+        function showAbout() {
+            document.getElementById('content').innerHTML = `
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <span class="chapter-title">Mombamomba ny Sekoly Baiboly</span>
+                    </div>
+                    <div class="chapter-content active">
+                        <div class="section">
+                            <div class="section-title">Tanjona</div>
+                            <div class="text-content">
+                                Ny Sekoly Baiboly dia natao hanampiana anao hianatra ny Tenin'Andriamanitra amin'ny fomba mora sy mazava.
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="section-title">Fampiasana</div>
+                            <div class="text-content">
+                                Tsindrio ny lohateny mba hamaky ny lesona tsirairay. Afaka mitady andininy ianao amin'ny alalan'ny fikarohana.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showNotes() {
+            document.getElementById('content').innerHTML = `
+                <div class="chapter-card">
+                    <div class="chapter-header">
+                        <span class="chapter-title">Fanamarihana</span>
+                    </div>
+                    <div class="chapter-content active">
+                        <div class="section">
+                            <div class="text-content">
+                                Tsy mbola misy fanamarihana. Haingana izao.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Charger le contenu au démarrage
         setTimeout(() => {
             renderContent();
         }, 500);
