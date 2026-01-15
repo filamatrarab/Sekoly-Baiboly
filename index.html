@@ -1,243 +1,589 @@
 <!DOCTYPE html>
 <html lang="mg">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sekoly Baiboly – Fampiorenana</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sekoly Baiboly - Lesona</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
---primary:#2c5aa0;
---secondary:#4a7fc1;
---accent:#f4a261;
---text:#2d3748;
---bg:#ffffff;
---bg-alt:#f7fafc;
---border:#e2e8f0;
-}
-body{
-font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
-line-height:1.6;
-background:var(--bg);
-color:var(--text);
-}
-header{
-background:linear-gradient(135deg,var(--primary),var(--secondary));
-color:#fff;
-padding:2rem 1rem;
-text-align:center;
-}
-nav{
-position:sticky;
-top:0;
-background:#fff;
-border-bottom:1px solid var(--border);
-z-index:10;
-}
-.nav-container{
-display:flex;
-gap:.5rem;
-padding:1rem;
-overflow-x:auto;
-}
-.nav-btn{
-padding:.5rem 1rem;
-border-radius:6px;
-border:1px solid var(--border);
-background:var(--bg-alt);
-cursor:pointer;
-white-space:nowrap;
-}
-.nav-btn.active,.nav-btn:hover{
-background:var(--primary);
-color:#fff;
-border-color:var(--primary);
-}
-main{
-max-width:900px;
-margin:2rem auto;
-padding:0 1rem;
-}
-.lesson{
-display:none;
-background:#fff;
-padding:2rem;
-border-radius:8px;
-border:1px solid var(--border);
-box-shadow:0 2px 10px rgba(0,0,0,.05);
-}
-.lesson.active{display:block}
-.lesson h2{
-color:var(--primary);
-border-bottom:3px solid var(--accent);
-padding-bottom:.5rem;
-margin-bottom:1.5rem;
-}
-.lesson h3{color:var(--secondary);margin-top:1.5rem}
-.lesson h4{margin-top:1rem}
-.verse{
-background:var(--bg-alt);
-border-left:4px solid var(--accent);
-padding:1rem;
-margin:1rem 0;
-font-style:italic;
-border-radius:4px;
-}
-.verse-ref{
-display:block;
-margin-top:.5rem;
-font-weight:bold;
-color:var(--primary);
-font-style:normal;
-}
-ul{margin:.75rem 0 .75rem 1.5rem}
-footer{
-margin-top:3rem;
-padding:2rem;
-text-align:center;
-background:var(--bg-alt);
-border-top:1px solid var(--border);
-}
-@media(max-width:768px){
-.lesson{padding:1.25rem}
-}
-</style>
-</head>
-
-<body>
-
-<header>
-<h1>📖 Sekoly Baiboly</h1>
-<p>Fampianarana Fampiorenana</p>
-</header>
-
-<nav>
-<div class="nav-container">
-<button class="nav-btn active" onclick="showLesson(0)">I. Fototra</button>
-<button class="nav-btn" onclick="showLesson(1)">II. Finoana</button>
-<button class="nav-btn" onclick="showLesson(2)">III. Vavaka</button>
-<button class="nav-btn" onclick="showLesson(3)">IV. Faharetana</button>
-<button class="nav-btn" onclick="showLesson(4)">V. Trinite</button>
-<button class="nav-btn" onclick="showLesson(5)">VI. Batisa</button>
-<button class="nav-btn" onclick="showLesson(6)">VII. Fiainana</button>
-</div>
-</nav>
-
-<main>
-
-<section class="lesson active">
-<h2>I. JESOSY DIA NANDIDY MBA ATAO MPIANATRA NY OLONA REHETRA</h2>
-<div class="verse">
-koa mandehana ianareo, dia ataovy mpianatra ny firenena rehetra…
-<span class="verse-ref">Matio 28:19-20</span>
-</div>
-
-<h3>FO TSARA</h3>
-<div class="verse">
-Fa ireo teny amin'ny tany tsara kosa dia izay mandre ny teny amin'ny fo sady marina no tsara…
-<span class="verse-ref">Lioka 8:15</span>
-</div>
-
-<ul>
-<li>Tany amoron-dalana</li>
-<li>Teny amin'ny tsilo</li>
-<li>Fo marivo</li>
-<li><strong>Fo tsara</strong></li>
-</ul>
-</section>
-
-<section class="lesson">
-<h2>II. NY FINOANA</h2>
-<div class="verse">
-Ny devoly koa dia mba mino izany ka mangovitra.
-<span class="verse-ref">Jakoba 2:19</span>
-</div>
-<div class="verse">
-Fa raha tsy amin'ny finoana dia tsy misy azo atao hahazoana sitraka Aminy.
-<span class="verse-ref">Hebreo 11:6</span>
-</div>
-</section>
-
-<section class="lesson">
-<h2>III. NY VAVAKA</h2>
-<div class="verse">
-Izaho no voaloboka, ianareo no sampany.
-<span class="verse-ref">Jaona 15:5</span>
-</div>
-<div class="verse">
-Fa ny helokareo no efitra mampisaraka anareo amin'Andriamanitrareo.
-<span class="verse-ref">Isaia 59:1-2</span>
-</div>
-</section>
-
-<section class="lesson">
-<h2>IV. FAHARETANA HATRAMIN’NY FARANY</h2>
-<div class="verse">
-Fa izay maharitra hatramin'ny farany no hovonjena.
-<span class="verse-ref">Matio 10:22</span>
-</div>
-<ul>
-<li>Fibebahana</li>
-<li>Fahamasinana</li>
-<li>Fanompoana</li>
-<li>Finoana</li>
-</ul>
-</section>
-
-<section class="lesson">
-<h2>V. ANDRIAMANITRA TELO IZAY IRAY</h2>
-<div class="verse">
-Manao batisa azy ho amin'ny anaran'ny Ray sy ny Zanaka ary ny Fanahy Masina.
-<span class="verse-ref">Matio 28:19</span>
-</div>
-<div class="verse">
-Tamin'ny voalohany ny Teny, ary ny Teny dia Andriamanitra.
-<span class="verse-ref">Jaona 1:1</span>
-</div>
-</section>
-
-<section class="lesson">
-<h2>VI. NY BATISAN’NY RANO SY NY FANAHY MASINA</h2>
-<div class="verse">
-Izay mino sy atao batisa no hovonjena.
-<span class="verse-ref">Marka 16:16</span>
-</div>
-<div class="verse">
-Ary samy feno ny Fanahy Masina izy rehetra.
-<span class="verse-ref">Asan'ny Apostoly 2:4</span>
-</div>
-</section>
-
-<section class="lesson">
-<h2>VII. NY FIAINANA MANDRAKIZAY</h2>
-<div class="verse">
-Fa fiainana mandrakizay no fanomezam-pahasoavana avy amin'Andriamanitra.
-<span class="verse-ref">Romana 6:23</span>
-</div>
-<div class="verse">
-Izany no fiainana mandrakizay, dia ny mahafantatra Anao.
-<span class="verse-ref">Jaona 17:3</span>
-</div>
-</section>
-
-</main>
-
-<footer>
-© Sekoly Baiboly – Fampiorenana
-</footer>
-
+        :root {
+            --primary: #2c5aa0;
+            --secondary: #4a7fc1;
+            --accent: #f4a261;
+            --text: #2d3748;
+            --bg: #ffffff;
+            --bg-alt: #f7fafc;
+            --border: #e2e8f0;
+        }
 <script>
-function showLesson(index){
-const lessons=document.querySelectorAll('.lesson');
-const buttons=document.querySelectorAll('.nav-btn');
-lessons.forEach(l=>l.classList.remove('active'));
-buttons.forEach(b=>b.classList.remove('active'));
-lessons[index].classList.add('active');
-buttons[index].classList.add('active');
-window.scrollTo({top:0,behavior:'smooth'});
-}
+    function showLesson(index) {
+        // Toutes les leçons
+        const lessons = document.querySelectorAll('.lesson');
+        const buttons = document.querySelectorAll('.nav-btn');
+
+        // Désactiver tout
+        lessons.forEach(lesson => lesson.classList.remove('active'));
+        buttons.forEach(btn => btn.classList.remove('active'));
+
+        // Activer la leçon choisie
+        lessons[index].classList.add('active');
+        buttons[index].classList.add('active');
+
+        // Revenir en haut de la page
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
 </script>
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        nav {
+            background: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .nav-container::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .nav-container::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .lesson {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .lesson.active {
+            display: block;
+        }
+
+        .lesson h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+            font-size: 1.8rem;
+        }
+
+        .lesson h3 {
+            color: var(--secondary);
+            margin: 1.5rem 0 1rem;
+            font-size: 1.3rem;
+        }
+
+        .lesson h4 {
+            color: var(--text);
+            margin: 1rem 0 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .verse {
+            background: var(--bg-alt);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--accent);
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        .verse-ref {
+            display: block;
+            margin-top: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            font-style: normal;
+        }
+
+        .content-section {
+            margin: 1.5rem 0;
+        }
+
+        .content-section p {
+            margin: 0.75rem 0;
+        }
+
+        ul, ol {
+            margin: 0.75rem 0 0.75rem 2rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        footer {
+            background: var(--bg-alt);
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 3rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .lesson {
+                padding: 1.5rem;
+            }
+            
+            .lesson h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📖 Sekoly Baiboly</h1>
+        <p class="subtitle">Fampianarana Fampiorenana</p>
+    </header>
+
+    <nav>
+        <div class="nav-container">
+            <button class="nav-btn active" onclick="showLesson(0)">I. Fototra</button>
+            <button class="nav-btn" onclick="showLesson(1)">II. Finoana</button>
+            <button class="nav-btn" onclick="showLesson(2)">III. Vavaka</button>
+            <button class="nav-btn" onclick="showLesson(3)">IV. Faharetana</button>
+            <button class="nav-btn" onclick="showLesson(4)">V. Andriamanitra</button>
+            <button class="nav-btn" onclick="showLesson(5)">VI. Batisa</button>
+            <button class="nav-btn" onclick="showLesson(6)">VII. Fiainana</button>
+            <button class="nav-btn" onclick="showLesson(7)">VIII. Fanasitranana</button>
+            <button class="nav-btn" onclick="showLesson(8)">IX. Fiangonana</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="lesson active">
+            <h2>I. JESOSY DIA NANDIDY MBA ATAO MPIANATRA NY OLONA REHETRA</h2>
+            
+            <div class="verse">
+                "koa mandehana ianareo, dia ataovy mpianatra ny firenena rehetra, manao batisa azy ho amin'ny anaran'ny Ray sy ny Zanaka ary ny Fanahy Masina, sady mampianatra azy hitandrina izay rehetra nandidiako anareo; ary indro Aho momba anareo mandrakariva, ambara-pahatongan'ny fahataperan'izao tontolo izao."
+                <span class="verse-ref">Matio 28:19-20</span>
+            </div>
+
+            <h3>NY AHAFAHANA MANDRAY TSARA NY TENIN'ANDRIAMANITRA</h3>
+            
+            <div class="content-section">
+                <h4>FO TSARA</h4>
+                <div class="verse">
+                    "Fa ireo teny amin'ny tany tsara kosa dia izay mandre ny teny amin'ny fo sady marina no tsara ka mitana izany ary mamoa amin'ny faharetana."
+                    <span class="verse-ref">Lioka 8:15</span>
+                </div>
+                
+                <p>Mila mibebaka sy amboarina ny fo mba handray tsara ny Tenin'Andriamanitra. Misy karazana fo efatra:</p>
+                
+                <ul>
+                    <li><strong>Tany amoron-dalana:</strong> Avelany hiditra daholo ny zavatra rehetra, lasa mafy ny fo, tsy mahatadidy toriteny</li>
+                    <li><strong>Teny amin'ny tsilo:</strong> Fo feno fanahiana, tsy matoky an'Andriamanitra</li>
+                    <li><strong>Fo marivo:</strong> Tsy lalim-paka ny finoana, tsy miditra lalina amin'ny fanompoana</li>
+                    <li><strong>Fo tsara:</strong> Marina, mitana ny teny, mamoa amin'ny faharetana</li>
+                </ul>
+            </div>
+
+            <h3>FAMPIANARANA FAMPIORENANA</h3>
+            
+            <div class="content-section">
+                <h4>1. MIFOHAZA IANAO IZAY MATORY</h4>
+                <div class="verse">
+                    "Koa izany no ilazany hoe: Mifohaza ianao izay matory, Ary mitsangàna amin'ny maty, Dia hampahazava anao Kristy."
+                    <span class="verse-ref">Efesiana 5:14</span>
+                </div>
+                <p>Ny fahotana no nahatonga ny torimasom-panahy. Ny maso ara nofo nihiratra fa ny masom-panahy nikatona.</p>
+                
+                <h4>2. MITSANGANA AMIN'NY MATY</h4>
+                <div class="verse">
+                    "Koa aoka hilaozantsika ny abidim-pianarana ny amin'i Kristy, fa aoka handroso ho amin'ny tanteraka isika ka tsy hanao fanorenana indray, dia fibebahana hahafahana amin'ny asa maty sy finoana an'Andriamanitra"
+                    <span class="verse-ref">Hebreo 6:1</span>
+                </div>
+                <p>Mitsangana amin'ny maty = Mibebaka amin'ny asa maty (ireo zavatra tsy mampandrosoara-panahy)</p>
+                
+                <h4>3. FIOVANA</h4>
+                <div class="verse">
+                    "Koa raha misy olona ao amin'i Kristy, dia olom-baovao izy, efa lasa ny zavatra taloha, indre, efa tonga vaovao ireo"
+                    <span class="verse-ref">2 Korintinina 5:17</span>
+                </div>
+                
+                <p><strong>Mila miova:</strong></p>
+                <ul>
+                    <li>Miova toetra (tahaka an'i Zakaiosy - Lioka 19)</li>
+                    <li>Miova ho tahaka ny zaza</li>
+                    <li>Mahafoy ny taloha</li>
+                    <li>Miova ho olona ara-panahy (tsy olona ara-nofo)</li>
+                    <li>Atao miharitra ny nofo</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>II. NY FINOANA</h2>
+            
+            <h3>FINOANA TSY MAHAVONJY</h3>
+            <div class="verse">
+                "Ianao mino fa iray ihany no Andriamanitra. Tsara izany ataonao izany: Ny devoly koa dia mba mino izany ka mangovitra."
+                <span class="verse-ref">Jakoba 2:19</span>
+            </div>
+            
+            <h3>FINOANA MAHAVONJY - ARAHINA ASA</h3>
+            <div class="verse">
+                "Koa mamoaza voa mendrika ny fibebahana ianareo; ary aza mihevitra ny hiteny anakampo hoe: Manana an'i Abrahama ho rainay izahay"
+                <span class="verse-ref">Matio 3:8-9</span>
+            </div>
+            
+            <div class="content-section">
+                <h4>OHATRA: ABRAHAMA</h4>
+                <p>Nanao sorona an'Isaka, nanaiky an'Andriamanitra tamin'ny asa.</p>
+                
+                <div class="verse">
+                    "Satria izany zavatra izany no nataonao ka tsy niaro ny zanakao, ilay lahitokanao, ianao, dia hitahy anao tokoa Aho ary hahamaro dia hahamaro ny taranakao"
+                    <span class="verse-ref">Genesisy 22:16-17</span>
+                </div>
+                
+                <div class="verse">
+                    "Fa raha tsy amin'ny finoana dia tsy misy azo atao hahazoana sitraka Aminy; fa izay manatona an'Andriamanitra dia tsy maintsy mino fa misy Izy sady mpamaly soa izay mazoto mitady Azy."
+                    <span class="verse-ref">Hebreo 11:6</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>III. VAVAKA</h2>
+            
+            <h3>NY VAVAKA NO FIRAISANA AMIN'ANDRIAMANITRA</h3>
+            <div class="verse">
+                "Ary nilaza fanoharana tamin'izy ireo Jesosy, ny amin'ny tokony hivavahany mandrakariva ka tsy ho reraka"
+                <span class="verse-ref">Lioka 18:1</span>
+            </div>
+            
+            <div class="verse">
+                "Izaho no voaloboka, ianareo no sampany. Izay mitoetra ao Amiko ary Izaho ao aminy dia mamoa be izy; fa raha misaraka Amiko kosa ianareo dia tsy mahay manao na inona na inona."
+                <span class="verse-ref">Jaona 15:5</span>
+            </div>
+            
+            <h3>NY OTA DIA MISAKANA NY VALIM-BAVAKA</h3>
+            <div class="verse">
+                "INDRO, ny tànan'i Jehovah tsy fohy, fa mahavonjy, Ary ny sofiny tsy lalodalovana, fa mahare; Fa ny helokareo no efitra mampisaraka anareo amin'Andriamanitrareo, Ary ny fahotanareo no mampiafina ny tavany aminareo, ka dia tsy mihaino Izy."
+                <span class="verse-ref">Isaia 59:1-2</span>
+            </div>
+            
+            <div class="verse">
+                "Fantatsika fa Andriamanitra tsy mihaino ny mpanota; fa izay mivavaka aminy sy manao ny sitrapony no henoiny."
+                <span class="verse-ref">Jaona 9:31</span>
+            </div>
+            
+            <h3>FIVORIAM-BAVAKA</h3>
+            <p>Hafa mihitsy ny fivoriam-bavaka satria eo ny fanatrehan'Andriamanitra.</p>
+            
+            <div class="verse">
+                "Fa na aiza na aiza no iangonan'ny roa na telo amin'ny anarako, dia ao afovoany Aho."
+                <span class="verse-ref">Matio 18:20</span>
+            </div>
+            
+            <div class="verse">
+                "aza mahafoy ny fiarahantsika miangona, tahaka ny fanaon'ny sasany, fa mifananara kosa, mainka satria hitanareo fa mihantomotra ny andro."
+                <span class="verse-ref">Hebreo 10:25</span>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>IV. NY FAHARETANA HATRAMIN'NY FARANY</h2>
+            
+            <h3>TSY MAINTSY MAHARITRA FARANY</h3>
+            <div class="verse">
+                "Ary ho halan'ny olona rehetra hianareo noho ny anarako; fa izay maharitra hatramin'ny farany no hovonjena."
+                <span class="verse-ref">Matio 10:22</span>
+            </div>
+            
+            <h3>MILA MAHARITRA AMIN'NY:</h3>
+            <ul>
+                <li>Fibebahana</li>
+                <li>Fahamasinana</li>
+                <li>Fanompoana</li>
+                <li>Finoana</li>
+            </ul>
+            
+            <h3>NY TSY MAHARITRA</h3>
+            <div class="verse">
+                "FA ny Fanahy milaza marina fa amin'ny andro aoriana dia hihemotra amin'ny finoana ny sasany, manaiky fanahy mamitaka sy fampianaran'ny demonia"
+                <span class="verse-ref">1Timoty 4:1-2</span>
+            </div>
+            
+            <div class="content-section">
+                <h4>FIHEMORANA = MIALA AMIN'NY FAHAMARINANA</h4>
+                <div class="verse">
+                    "Efa mihatra aminy ny ohabolana marina hoe: «Ny amboa no miverina indray amin'ny loany», ary: Ny kisoavavy efa nisasa dia mihosim-potaka indray."
+                    <span class="verse-ref">2Petera 2:22</span>
+                </div>
+                
+                <p><strong>Raha vao miverin-dalana:</strong></p>
+                <ul>
+                    <li>Lasa fito ratsy noho ny teo aloha</li>
+                    <li>Lasa manota be noho ny tamin'ny voalohany</li>
+                    <li>Tsy tafiditra any amin'ny Fanjakan'Andriamanitra</li>
+                </ul>
+            </div>
+            
+            <h3>MBA HAHARETANA</h3>
+            <ul>
+                <li>Mila maharitra fahoriana</li>
+                <li>Mila maharitra fakam-panahy</li>
+                <li>Mila mijoro tsara amin'ny fampianarana</li>
+                <li>Tsy tokony tia izao fiainana izao</li>
+            </ul>
+            
+            <h3>NY VALIM-PITIA HO AN'IZAY MAHARITRA</h3>
+            <div class="verse">
+                "Ary izay maharesy ka mitandrina ny asako hatramin'ny farany dia homeko fahefana amin'ny jentilisa"
+                <span class="verse-ref">Apokalypsy 2:26</span>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>V. ANDRIAMANITRA TELO IZAY IRAY (TRINITE)</h2>
+            
+            <div class="verse">
+                "koa mandehana hianareo, dia ataovy mpianatra ny firenena rehetra, manao batisa azy ho amin'ny anaran'ny Ray sy ny Zanaka ary ny Fanahy Masina"
+                <span class="verse-ref">Matio 28:19</span>
+            </div>
+            
+            <h3>1. ANDRIAMANITRA RAY = JEHOVAH</h3>
+            <div class="verse">
+                "Efa renareo fa Izaho nilaza taminareo hoe: Handeha Aho, nefa ho avy aminareo indray. Raha tia Ahy hianareo, dia ho faly, satria mankany amin'ny Ray Aho; fa ny Ray dia lehibe noho Izaho."
+                <span class="verse-ref">Jaona 14:28</span>
+            </div>
+            
+            <h3>2. ANDRIAMANITRA ZANAKA = JESOSY</h3>
+            <div class="verse">
+                "TAMIN'ny voalohany ny Teny, ary ny Teny tao amin'Andriamanitra, ary ny Teny dia Andriamanitra. Izy dia tao amin'Andriamanitra tamin'ny voalohany."
+                <span class="verse-ref">Jaona 1:1-2</span>
+            </div>
+            
+            <div class="content-section">
+                <h4>JESOSY DIA ANDRIAMANITRA</h4>
+                <ul>
+                    <li>Azo ivavahana</li>
+                    <li>Efa nisy hatrizay</li>
+                    <li>Ran'Andriamanitra ny rany</li>
+                    <li>Manana fahefana rehetra</li>
+                </ul>
+                
+                <div class="verse">
+                    "Fa Zaza no teraka ho antsika, Zazalahy no omena antsika; Ary ny fanapahana dia eo an-tsorony, Ary ny anarany atao hoe Mahagaga, Mpanolo-tsaina, Andriamanitra Mahery, Rain'ny mandrakizay, Andrian'ny fiadanana."
+                    <span class="verse-ref">Isaia 9:5</span>
+                </div>
+            </div>
+            
+            <h3>3. NY FANAHY MASINA</h3>
+            <ul>
+                <li>Efa hatramin'ny namoronana izao tontolo izao</li>
+                <li>Manome hery</li>
+                <li>Mampiaiky ny fahotana</li>
+                <li>Manaitra, manampy, mampahery</li>
+                <li>Mampianatra, mampatsiaro</li>
+            </ul>
+            
+            <div class="verse">
+                "Ary aza mampalahelo ny Fanahy Masin'Andriamanitra, Izay nanisiana tombo-kase anareo ho amin'ny andro fanavotana."
+                <span class="verse-ref">Efesiana 4:30</span>
+            </div>
+            
+            <div class="verse">
+                "Ary noho izany dia lazaiko aminareo hoe: Hahazo famelan-keloka ny olona amin'ny ota sy fitenenan-dratsy samy hafa rehetra; fa tsy hahazo famelan-keloka ny olona amin'ny fitenenan-dratsy ny Fanahy Masina."
+                <span class="verse-ref">Matio 12:31</span>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>VI. NY BATISAN'NY RANO SY NY FANAHY MASINA</h2>
+            
+            <h3>BATISAN'NY RANO</h3>
+            
+            <div class="content-section">
+                <h4>1. Didin'i Jesosy</h4>
+                <div class="verse">
+                    "koa mandehana hianareo, dia ataovy mpianatra ny firenena rehetra, manao batisa azy ho amin'ny anaran'ny Ray sy ny Zanaka ary ny Fanahy Masina"
+                    <span class="verse-ref">Matio 28:19</span>
+                </div>
+                
+                <h4>2. Ny vita batisa ihany no olom-boavonjy</h4>
+                <div class="verse">
+                    "Izay mino sy atao batisa no hovonjena; fa izay tsy mety mino no hohelohina."
+                    <span class="verse-ref">Marka 16:16</span>
+                </div>
+                
+                <h4>3. Fandevenana ny fahotana</h4>
+                <div class="verse">
+                    "Koa niara-nalevina taminy tamin'ny batisa ho amin'ny fahafatesana isika, mba ho tahaka ny nananganana an'i Kristy tamin'ny maty tamin'ny voninahitry ny Ray no handehanantsika kosa amin'ny fiainam-baovao."
+                    <span class="verse-ref">Romana 6:4</span>
+                </div>
+                
+                <h4>4. Ny zazakely tsofin-drano fa tsy atao batisa</h4>
+                <p>Satria tsy mbola mahay mibebaka sy manaiky</p>
+            </div>
+            
+            <h3>BATISAN'NY FANAHY MASINA</h3>
+            
+            <div class="content-section">
+                <h4>1. Fahafenoan'ny Fanahy Masina arahina fitenenana amin'ny fiteny tsy fantatra</h4>
+                <div class="verse">
+                    "Ary samy feno ny Fanahy Masina izy rehetra, ka dia niteny tamin'ny fiteny maro samy hafa, araka ny nampitenenan'ny Fanahy Masina azy."
+                    <span class="verse-ref">Asan'ny Apostoly 2:4</span>
+                </div>
+                
+                <h4>2. Fanomezan'Andriamanitra ho an'izay rehetra mibebaka</h4>
+                <div class="verse">
+                    "Ary hoy Petera taminy: Mibebaha, ary aoka samy hatao batisa amin'ny anaran'i Jesosy Kristy hianareo rehetra mba hahazo famelana ny helokareo; ary hianareo handray ny fanomezana, dia ny Fanahy Masina"
+                    <span class="verse-ref">Asan'ny Apostoly 2:38</span>
+                </div>
+                
+                <h4>3. Jesosy no manao batisan'ny Fanahy Masina</h4>
+                <div class="verse">
+                    "Izaho dia manao batisa anareo amin'ny rano ho amin'ny fibebahana; fa Ilay avy ao aoriako no mahery noho izaho, ka tsy mendrika hitondra ny kapany aza aho; Izy no hanao batisa anareo amin'ny Fanahy Masina sy ny afo"
+                    <span class="verse-ref">Matio 3:11</span>
+                </div>
+                
+                <h4>4. Mahazo hery rehefa mandray Fanahy Masina</h4>
+                <div class="verse">
+                    "Fa hahazo hery hianareo amin'ny hilatsahan'ny Fanahy Masina aminareo, ary ho vavolombeloko any Jerosalema sy eran'i Jodia sy Samaria ary hatramin'ny faran'ny tany."
+                    <span class="verse-ref">Asan'ny Apostoly 1:8</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <h2>VII. NY FIAINANA MANDRAKIZAY</h2>
+            
+            <h3>IZAY MINO AN'I JESOSY NO MANANA FIAINANA MANDRAKIZAY</h3>
+            <div class="verse">
+                "Izay mino ny Zanaka manana fiainana mandrakizay; fa izay tsy mino ny Zanaka dia tsy hahita fiainana, fa ny fahatezeran'Andriamanitra no mitoetra eo aminy."
+                <span class="verse-ref">Jaona 3:36</span>
+            </div>
+            
+            <div class="verse">
+                "Ary izao no fiainana mandrakizay, dia ny mahafantatra Anao, Izay Andriamanitra tokana sady marina, sy Jesosy Kristy, Izay efa nirahinao."
+                <span class="verse-ref">Jaona 17:3</span>
+            </div>
+            
+            <h3>FANOMEZAM-PAHASOAVANA AVY AMIN'ANDRIAMANITRA</h3>
+            <div class="verse">
+                "Fa fahafatesana no tambin'ny ota; ary fiainana mandrakizay no fanomezam-pahasoavana avy amin'Andriamanitra ao amin'i Kristy Jesosy Tompontsika."
+                <span class="verse-ref">Romana 6:23</span>
+            </div>
+            
+            <h3>NY LALANA MANKAMIN'NY FIAINANA MANDRAKIZAY</h3>
+            <div class="verse">
+                "Midira amin'ny vavahady èty hianareo; fa lehibe ny vavahady, ary malalaka ny làlana izay mankany amin'ny fahaverezana, ka maro ny miditra any. Fa èty ny vavahady, ary tèry ny làlana izay mankany amin'ny fiainana, ka vitsy ny mahita azy."
+                <span class="verse-ref">Matio 7:13-14</span>
+            </div>
+            
+            <div class="content-section">
+                <h4>Mahafoy ny zavatra rehetra</h4>
+                <div class="verse">
+                    "Dia hoy Jesosy taminy: Raha tia ho tanteraka hianao, mandehana, amidio ny fanananao, ka omeo ny malahelo, dia hanana rakitra any an-danitra hianao; ary avia hanaraka Ahy."
+                    <span class="verse-ref">Matio 19:21</span>
+                </div>
+            </div>
+            
+            <h3>NY FIAINANA MANDRAKIZAY</h3>
+            <div class="verse">
+                "ARY nahita lanitra vaovao sy tany aho"
+              <body>
+    <!-- header -->
+    <!-- nav -->
+    <!-- main -->
+    
+    <script>
+        function showLesson(index) {
+            const lessons = document.querySelectorAll('.lesson');
+            const buttons = document.querySelectorAll('.nav-btn');
+
+            lessons.forEach(l => l.classList.remove('active'));
+            buttons.forEach(b => b.classList.remove('active'));
+
+            lessons[index].classList.add('active');
+            buttons[index].classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
-</html>
