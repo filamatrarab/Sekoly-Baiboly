@@ -1,646 +1,101 @@
 <!DOCTYPE html>
 <html lang="mg">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sekoly Baiboly</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sekoly Baiboly</title>
 
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #f59e0b;
-            --accent: #8b5cf6;
-            --bg-main: #0f172a;
-            --bg-card: #1e293b;
-            --bg-elevated: #334155;
-            --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            --border: #475569;
-            --glow: rgba(99, 102, 241, 0.3);
-        }
-
-        body.light-mode {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #f59e0b;
-            --accent: #8b5cf6;
-            --bg-main: #f8fafc;
-            --bg-card: #ffffff;
-            --bg-elevated: #f1f5f9;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --border: #e2e8f0;
-            --glow: rgba(99, 102, 241, 0.15);
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
-            background: var(--bg-main);
-            color: var(--text-primary);
-            line-height: 1.6;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-x: hidden;
-        }
-
-        /* Gradient animé en arrière-plan */
-        body::before {
-            content: '';
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, var(--glow) 0%, transparent 70%);
-            animation: gradientMove 15s ease infinite;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        @keyframes gradientMove {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            33% { transform: translate(10%, 10%) rotate(120deg); }
-            66% { transform: translate(-10%, 5%) rotate(240deg); }
-        }
-
-        .header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: white;
-            padding: 24px 20px;
-            text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .header h1 {
-            font-size: 28px;
-            font-weight: 800;
-            margin-bottom: 6px;
-            background: linear-gradient(to right, #fff, #e0e7ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -0.5px;
-        }
-
-        .header p {
-            font-size: 14px;
-            opacity: 0.95;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-        }
-
-        .theme-toggle {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            padding: 10px;
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .theme-toggle:hover {
-            background: rgba(255,255,255,0.25);
-            transform: translateY(-50%) scale(1.05);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
-
-        .search-container {
-            padding: 20px;
-            background: transparent;
-            position: relative;
-            z-index: 10;
-        }
-
-        .search-wrapper {
-            position: relative;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 16px 50px 16px 20px;
-            border: 2px solid var(--border);
-            border-radius: 16px;
-            font-size: 16px;
-            background: var(--bg-card);
-            color: var(--text-primary);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-
-        .search-box:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 8px 30px var(--glow), 0 0 0 4px var(--glow);
-            transform: translateY(-2px);
-        }
-
-        .search-icon {
-            position: absolute;
-            right: 18px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 20px;
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        .container {
-            padding: 20px;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding-bottom: 100px;
-            position: relative;
-            z-index: 10;
-        }
-
-        .chapter-card {
-            background: var(--bg-card);
-            border-radius: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid var(--border);
-            position: relative;
-        }
-
-        .chapter-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .chapter-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-        }
-
-        .chapter-card:hover::before {
-            opacity: 1;
-        }
-
-        .chapter-header {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            padding: 20px 24px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chapter-header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .chapter-header:hover::before {
-            opacity: 1;
-        }
-
-        .chapter-number {
-            background: rgba(255,255,255,0.2);
-            padding: 8px 16px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 700;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.3);
-            letter-spacing: 0.5px;
-        }
-
-        .chapter-title {
-            flex: 1;
-            margin: 0 20px;
-            font-size: 16px;
-            font-weight: 600;
-            letter-spacing: -0.3px;
-        }
-
-        .chapter-icon {
-            font-size: 20px;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            background: rgba(255,255,255,0.15);
-        }
-
-        .chapter-icon.expanded {
-            transform: rotate(180deg);
-        }
-
-        .chapter-content {
-            padding: 0;
-            max-height: 0;
-            overflow: hidden;
-            background: var(--bg-card);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .chapter-content.active {
-            max-height: 5000px;
-            padding: 24px;
-        }
-
-        .section {
-            margin-bottom: 24px;
-            padding: 20px;
-            background: var(--bg-elevated);
-            border-radius: 16px;
-            border-left: 4px solid var(--secondary);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--glow) 0%, transparent 100%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .section:hover::before {
-            opacity: 1;
-        }
-
-        .section:hover {
-            transform: translateX(4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-
-        .section-title {
-            color: var(--primary);
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .section-title::before {
-            content: "📖";
-            margin-right: 10px;
-            font-size: 22px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
-        }
-
-        .verse {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            padding: 16px;
-            border-radius: 12px;
-            margin: 12px 0;
-            color: white;
-            font-style: italic;
-            box-shadow: 0 4px 15px var(--glow);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .verse::before {
-            content: '"';
-            position: absolute;
-            top: -10px;
-            left: 10px;
-            font-size: 60px;
-            opacity: 0.1;
-            font-family: Georgia, serif;
-        }
-
-        .verse-ref {
-            color: rgba(255,255,255,0.9);
-            font-weight: 600;
-            display: block;
-            margin-top: 10px;
-            font-style: normal;
-            font-size: 14px;
-            letter-spacing: 0.3px;
-        }
-
-        .text-content {
-            line-height: 1.8;
-            color: var(--text-secondary);
-            position: relative;
-            z-index: 1;
-            font-size: 15px;
-        }
-
-        .favorite-btn {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 15px var(--glow);
-            letter-spacing: 0.3px;
-        }
-
-        .favorite-btn:hover {
-            transform: translateY(-2px) scale(1.05);
-            box-shadow: 0 8px 25px var(--glow);
-        }
-
-        .favorite-btn:active {
-            transform: translateY(0) scale(0.98);
-        }
-
-        .favorite-btn.active {
-            background: linear-gradient(135deg, var(--secondary), #ef4444);
-        }
-
-        .bottom-nav {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            display: flex;
-            padding: 8px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            z-index: 100;
-            gap: 4px;
-        }
-
-        .nav-item {
-            flex: 1;
-            text-align: center;
-            padding: 12px 20px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 14px;
-            min-width: 70px;
-        }
-
-        .nav-item:hover {
-            background: var(--bg-elevated);
-            color: var(--primary);
-            transform: translateY(-2px);
-        }
-
-        .nav-item.active {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            box-shadow: 0 4px 15px var(--glow);
-        }
-
-        .nav-icon {
-            font-size: 22px;
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .nav-label {
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
-
-        .loading {
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            margin: 0 auto 20px;
-            border: 4px solid var(--border);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-secondary);
-        }
-
-        .no-results-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .header h1 { font-size: 22px; }
-            .chapter-title { font-size: 14px; margin: 0 12px; }
-            .section-title { font-size: 16px; }
-            .theme-toggle { right: 10px; width: 40px; height: 40px; }
-            .bottom-nav { bottom: 10px; padding: 6px; width: 95%; }
-            .nav-item { padding: 10px 12px; min-width: 60px; }
-            .nav-icon { font-size: 20px; }
-        }
-
-        @media print {
-            .header, .search-container, .bottom-nav, .theme-toggle { display: none; }
-            .chapter-content { display: block !important; max-height: none !important; }
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>📚 Sekoly Baiboly</h1>
-        <p>Fampianarana ny Tenin'Andriamanitra</p>
-        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">☀️</button>
-    </div>
-
-    <div class="search-container">
-        <div class="search-wrapper">
-            <input type="text" class="search-box" id="searchInput" placeholder="Hitady lesona na andininy...">
-            <span class="search-icon">🔍</span>
-        </div>
-    </div>
-
-    <div class="container" id="content">
-        <div class="loading">
-            <div class="spinner"></div>
-            <p>Manatrika...</p>
-        </div>
-    </div>
-
-    <div class="bottom-nav">
-        <a href="#" class="nav-item active" data-view="all">
-            <span class="nav-icon">📖</span>
-            <span class="nav-label">Rehetra</span>
-        </a>
-        <a href="#" class="nav-item" data-view="favorites">
-            <span class="nav-icon">⭐</span>
-            <span class="nav-label">Ankafiziko</span>
-        </a>
-        <a href="#" class="nav-item" data-view="notes">
-            <span class="nav-icon">📝</span>
-            <span class="nav-label">Fanamarihana</span>
-        </a>
-        <a href="#" class="nav-item" data-view="about">
-            <span class="nav-icon">ℹ️</span>
-            <span class="nav-label">Mombamomba</span>
-        </a>
-    </div>
-
-    <script>
-<script>
-let chapters = [];
-
-async function loadChapters() {
-    try {
-        const res = await fetch("data/chapters.json");
-        chapters = await res.json();
-        render(chapters);
-    } catch (e) {
-        content.innerHTML = "<p>Erreur de chargement</p>";
-    }
+<style>
+body {
+    font-family: system-ui, sans-serif;
+    margin: 0;
+    background: #0f172a;
+    color: #f1f5f9;
 }
+
+header {
+    background: #6366f1;
+    padding: 16px;
+    text-align: center;
+}
+
+main {
+    max-width: 800px;
+    margin: auto;
+    padding: 16px;
+}
+
+.chapter {
+    background: #1e293b;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.chapter-header {
+    padding: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.chapter-content {
+    display: none;
+    padding: 14px;
+    border-top: 1px solid #334155;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sekoly Baiboly</h1>
+</header>
+
+<main id="content">
+    <p>Chargement...</p>
+</main>
+
+<script>
+const chapters = [
+  {
+    "number": "I",
+    "title": "JESOSY DIA NANDIDY MBA ATAO MPIANATRA",
+    "sections": [
+      { "title": "Ny Fampianarany", "content": "Koa mandehana ianareo..." }
+    ]
+  },
+  {
+    "number": "II",
+    "title": "MANDRAY NY TENIN'ANDRIAMANITRA",
+    "sections": [
+      { "title": "Fo Tsara", "content": "Fa ireo teny amin'ny tany tsara..." }
+    ]
+  }
+];
+
+const content = document.getElementById("content");
+
+function render() {
+    content.innerHTML = "";
+    chapters.forEach(c => {
+        const div = document.createElement("div");
+        div.className = "chapter";
+        div.innerHTML = `
+            <div class="chapter-header">${c.number}. ${c.title}</div>
+            <div class="chapter-content">
+                ${c.sections.map(s => `<p>${s.content}</p>`).join("")}
+            </div>
+        `;
+        div.querySelector(".chapter-header").onclick = () => {
+            const body = div.querySelector(".chapter-content");
+            body.style.display = body.style.display === "block" ? "none" : "block";
+        };
+        content.appendChild(div);
+    });
+}
+
+render();
 </script>
 
-
-        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
-        let currentView = 'all';
-
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            if (savedTheme === 'light') {
-                document.body.classList.add('light-mode');
-                document.getElementById('themeToggle').textContent = '🌙';
-            }
-        }
-
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-            const isLight = document.body.classList.contains('light-mode');
-            document.getElementById('themeToggle').textContent = isLight ? '🌙' : '☀️';
-            localStorage.setItem('theme', isLight ? 'light' : 'dark');
-        }
-
-        initTheme();
-
-        function renderContent() {
-            const container = document.getElementById('content');
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            
-            let filteredChapters = chapters;
-            
-            if (searchTerm) {
-                filteredChapters = chapters.filter(chapter => {
-                    const titleMatch = chapter.title.toLowerCase().includes(searchTerm);
-                    const sectionMatch = chapter.sections.some(section => 
-                        section.title.toLowerCase().includes(searchTerm) ||
-                        section.content.toLowerCase().includes(searchTerm) ||
-                        (section.verse && section.verse.toLowerCase().includes(searchTerm))
-                    );
-                    return titleMatch || sectionMatch;
-                });
-            }
-
-            if (currentView === 'favorites') {
-                filteredChapters = filteredChapters.filter(chapter => 
-                    favorites.includes(chapter.number)
-                );
-            }
-
-            if (filteredChapters.length === 0) {
-                container.innerHTML = `
-                    <div class="no-results">
-                        <div class="no-results-icon">🔍</div>
-                        <h3>Tsy nahitana valiny</h3>
-                        <p>Andramo fikarohana hafa</p>
-                    </div>
-                `;
-                return;
-            }
-
-            const html = filteredChapters.map(chapter => {
-                const isFavorite = favorites.includes(chapter.number);
-                return `
-                    <div class="chapter-card">
-                        <div class="chapter-header" onclick="toggleChapter('${chapter.number}')">
-                            <span class="chapter-number">${chapter.number}</span>
-                            <span class="chapter-title">${chapter.title}</span>
-                            <span class="chapter-icon" id="icon-${chapter.number}">▼</span>
-                        </div>
-                        <div class="chapter-content" id="content-${chapter.number}">
-                            ${chapter.sections.map(section => `
-                                <div class="section">
-                                    <div class="section-title">${section.title}</div>
-                                    <div class="text-content">${section.content}</div>
-                                    ${section.verse ? `
-                                        <div class="verse">
-                                            ${section.content}
-                                            <span class="verse-
-                                                loadChapters();
-
+</body>
+</html>
